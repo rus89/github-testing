@@ -1,0 +1,20 @@
+name: Check Branch Name
+
+on: push
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get branch name
+      id: get-branch-name
+      run: echo ::set-output name=BRANCH_NAME::${GITHUB_REF#refs/heads/}
+      shell: bash
+
+    - name: Check branch naming convention
+      run: |
+        if [[ ! "${{ steps.get-branch-name.outputs.BRANCH_NAME }}" =~ ^(feature/|bugfix/|hotfix/) ]]; then
+          echo "Error: Branch naming convention not followed! Name your branch to start with feature/, bugfix/, or hotfix/."
+          exit 1
+        fi
