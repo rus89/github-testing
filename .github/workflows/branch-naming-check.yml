@@ -1,9 +1,10 @@
 name: Check Branch Name
 
-on: push
-  branches-ignore:
-    - main
-    - develop
+on:
+  push:
+    branches-ignore:
+      - main
+      - develop
 
 jobs:
   check-branch-name:
