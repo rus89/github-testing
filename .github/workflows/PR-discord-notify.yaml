@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Send notification to Discord
         uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: 'Pull Request #${{ github.event.pull_request.number }} has been opened by ${{ github.event.pull_request.user.login }} in ${{ github.event.pull_request.repository.full_name }}. Link: ${{ github.event.pull_request.html_url }}'
+          args: 'Pull Request #${{ github.event.pull_request.number }} has been opened by ${{ github.event.pull_request.user.login }} in ${{ github.event.pull_request.repository.full_name }}. Link: ${{ github.event.pull_request.html_url }}'
