@@ -1,0 +1,16 @@
+name: Send Pull Request ID to Discord
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to Discord
+        uses: Ilshidur/action-discord@2.4.5
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: 'Pull Request #${{ github.event.pull_request.number }} has been opened by ${{ github.event.pull_request.user.login }} in ${{ github.event.pull_request.repository.full_name }}. Link: ${{ github.event.pull_request.html_url }}'
