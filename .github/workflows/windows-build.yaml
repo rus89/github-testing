@@ -1,0 +1,44 @@
+name: Build for StandaloneWindows64
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    run-name: ${{ github.sha }}
+
+jobs:
+  build:
+    name: Build for PC
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Unity activation
+      uses: game-ci/unity-request-activation-file@v1
+
+    - name: Cache Unity Library
+      uses: actions/cache@v2
+      with:
+        path: Library
+        key: Library
+
+    - name: Return Unity License
+      uses: game-ci/unity-return-license@v1
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+    - name: Build project
+      uses: game-ci/unity-builder@v2
+      with:
+        projectPath: ./YourUnityProjectPath
+        unityVersion: 2020.3.1f1 # replace with your version
+        targetPlatform: StandaloneWindows64 # or StandaloneWindows
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: build

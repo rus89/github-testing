@@ -1,17 +1,28 @@
 name: Check Branch Name
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - main
+      - develop
 
 jobs:
   check-branch-name:
     runs-on: ubuntu-latest
 
     steps:
+
+    # Checkout
+    - name: Checkout Repository
+      uses: actions/checkout@v4.1.0
+
+    # Get Branch name
     - name: Get branch name
       id: get-branch-name
       run: echo ::set-output name=BRANCH_NAME::${GITHUB_REF#refs/heads/}
       shell: bash
 
+    # Check name convention
     - name: Check branch naming convention
       run: |
         if [[ ! "${{ steps.get-branch-name.outputs.BRANCH_NAME }}" =~ ^(feature/|bugfix/|hotfix/) ]]; then
