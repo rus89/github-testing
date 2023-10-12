@@ -1,4 +1,4 @@
-name: Build for StandaloneWindows64
+name: 🛠 Build for StandaloneWindows64 🛠
 
 on:
   push:
@@ -13,23 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    # Initial Checkout against rules
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Setting up Unity Activation
     - name: Setup Unity activation
       uses: game-ci/unity-request-activation-file@v1
 
-    - name: Cache Unity Library
-      uses: actions/cache@v2
-      with:
-        path: Library
-        key: Library
+    # Caching Unity Library
+    - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
 
+    # Returning Unity Licence
     - name: Return Unity License
       uses: game-ci/unity-return-license@v1
       env:
         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
+    # Building the project
     - name: Build project
       uses: game-ci/unity-builder@v2
       with:
@@ -37,6 +45,7 @@ jobs:
         unityVersion: 2020.3.1f1 # replace with your version
         targetPlatform: StandaloneWindows64 # or StandaloneWindows
 
+    # Uploading artifacts
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2
       with:
