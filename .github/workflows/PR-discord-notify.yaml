@@ -9,6 +9,7 @@ jobs:
   notify-discord:
     runs-on: ubuntu-latest
     steps:
+      # Sending notif
       - name: Send notification to Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
