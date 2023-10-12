@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - test-GG-project
+          - ./GithubTest
         unityVersion:
           - 2022.3.1f1
         targetPlatform:
@@ -59,7 +59,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - test-project
+          - ./GithubTest
         unityVersion:
           - 2022.3.1f1
         targetPlatform:
