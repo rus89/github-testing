@@ -1,4 +1,4 @@
-name: 🛠 Build for StandaloneWindows64 🛠
+name: Build for StandaloneWindows64
 
 on:
   push:
