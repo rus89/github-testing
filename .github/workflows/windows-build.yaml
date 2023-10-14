@@ -84,10 +84,11 @@ jobs:
             Library-${{ matrix.projectPath }}-
             Library-
 
-      - name: returnLicense
-        steps:
-          - uses: game-ci/unity-activate@v2
-          - uses: game-ci/unity-return-license@v2
+      - name: activate license
+        uses: game-ci/unity-activate@v2
+      - name: return License
+        uses: game-ci/unity-return-license@v2
+      
       - uses: game-ci/unity-builder@v3
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
