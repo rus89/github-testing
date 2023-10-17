@@ -1,0 +1,23 @@
+name: Notify Discord on Develop Update
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' || (github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop')
+    steps:
+      - name: Send notification to Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The develop branch in ${{ github.repository }} has been updated. Everyone should consider pulling the latest changes! Link: ${{ github.event.repository.html_url }}/tree/develop'
