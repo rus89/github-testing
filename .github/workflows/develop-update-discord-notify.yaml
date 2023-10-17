@@ -20,4 +20,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'The develop branch in ${{ github.repository }} has been updated. Everyone should consider pulling the latest changes! Link: ${{ github.event.repository.html_url }}/tree/develop'
+          args: 'The develop branch in ${{ github.repository }} has been updated. @everyone should consider pulling the latest changes! Link: ${{ github.event.repository.html_url }}/tree/develop'
