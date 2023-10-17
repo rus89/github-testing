@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - develop
-    types:
-      - closed
 
 jobs:
   notify-discord:
@@ -20,4 +15,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'The develop branch in ${{ github.repository }} has been updated. \n @everyone, pull the latest changes! Link: ${{ github.event.repository.html_url }}/tree/develop'
+          args: '@everyone, the develop branch has been updated. Pull the latest changes!'
